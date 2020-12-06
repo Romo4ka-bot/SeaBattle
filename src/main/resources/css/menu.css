@@ -7,8 +7,8 @@
     -fx-font-size: 32px;
     -fx-cursor: hand;
     -fx-background-radius: 10px;
-    -fx-background-insets: 0; /* removes stupid border */
-    -fx-font-smoothing-type: lcd; /* not working ?? */
+    -fx-background-insets: 0;
+    -fx-font-smoothing-type: lcd;
 }
 
 .button:focused {
