@@ -1,4 +1,4 @@
-package sample;
+package ru.itis;
 
 import lombok.Data;
 import lombok.Getter;
@@ -13,7 +13,6 @@ public class Ship {
     private Integer num;
     private String position;
     private Integer[] coordinates;
-//    private
 
     public Ship(Integer num) {
         this.num = num;

@@ -1,4 +1,4 @@
-package sample;
+package ru.itis;
 
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -172,7 +172,7 @@ public class CreateGame {
                 hBox7.setVisible(true);
                 hBox7.setManaged(true);
                 int i = 0;
-                for (Rectangle rectangle: rectanglesHor) {
+                for (Rectangle rectangle : rectanglesHor) {
                     if (GridPane.getRowIndex(rectangle) != null) {
                         rectanglesVert[i].setVisible(false);
                         rectanglesVert[i].setManaged(false);
@@ -182,8 +182,8 @@ public class CreateGame {
                 for (int j = 0; j < 4; j++)
                     shipController.getShips()[j].setPosition("vertically");
             } else {
-                rectanglesHor[9].setVisible(true);
-                rectanglesHor[9].setManaged(true);
+                hBox8.setVisible(true);
+                hBox8.setManaged(true);
                 hBox1.setVisible(true);
                 hBox1.setManaged(true);
                 hBox2.setVisible(true);
@@ -197,7 +197,7 @@ public class CreateGame {
                 hBox7.setVisible(false);
                 hBox7.setManaged(false);
                 int i = 0;
-                for (Rectangle rectangle: rectanglesVert) {
+                for (Rectangle rectangle : rectanglesVert) {
                     if (GridPane.getRowIndex(rectangle) != null) {
                         rectanglesHor[i].setVisible(false);
                         rectanglesHor[i].setManaged(false);
@@ -217,16 +217,40 @@ public class CreateGame {
         vBox.setStyle("-fx-spacing: 10");
         HBox hBox4 = new HBox();
         VBox vBox1 = new VBox();
-        vBox1.getChildren().addAll(gridPane, controller.button);
-        hBox4.getChildren().addAll(vBox, vBox1);
-        Button button1 = controller.button;
-        button1.setOnAction(event -> {
-            try {
-                BattleShips.renderWindowBattleShips(Main.primaryStage, 0, gridPane, shipController.getMap());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        if (typeGame == 0) {
+            vBox1.getChildren().addAll(gridPane, controller.button);
+            hBox4.getChildren().addAll(vBox, vBox1);
+            Button button1 = controller.button;
+            button1.setOnAction(event -> {
+                try {
+                    BattleShips.renderWindowBattleShipsWithBot(Main.primaryStage, gridPane, shipController.getMap());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        } else {
+            Button button1 = new Button("Создать игру");
+            Button button2 = new Button("Присоединиться по коду");
+            button1.setOnAction(event -> {
+                try {
+                    BattleShips.renderWindowBattleShipsWithPlayerCreatePass(Main.primaryStage, gridPane, shipController.getMap());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            button2.setOnAction(event -> {
+                try {
+                    BattleShips.renderWindowBattleShipsWithPlayerWritePass(Main.primaryStage, gridPane, shipController.getMap());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            HBox hBox9 = new HBox();
+            hBox9.setSpacing(10);
+            hBox9.getChildren().addAll(button1, button2);
+            vBox1.getChildren().addAll(gridPane, hBox9);
+            hBox4.getChildren().addAll(vBox, vBox1);
+        }
         Scene scene = new Scene(hBox4, 700, 400);
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);

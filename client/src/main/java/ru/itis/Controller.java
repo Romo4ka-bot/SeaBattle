@@ -1,4 +1,4 @@
-package sample;
+package ru.itis;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

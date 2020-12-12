@@ -1,4 +1,4 @@
-package sample;
+package ru.itis;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -14,6 +14,6 @@ public class MenuController {
     }
 
     public void renderWithUser(ActionEvent actionEvent) throws IOException {
-        CreateGame.renderWindowCreateGame(Main.primaryStage, 0);
+        CreateGame.renderWindowCreateGame(Main.primaryStage, 1);
     }
 }

@@ -1,4 +1,4 @@
-package sample;
+package ru.itis;
 
 import lombok.Data;
 import lombok.Getter;
