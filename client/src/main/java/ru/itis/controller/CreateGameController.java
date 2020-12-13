@@ -1,14 +1,11 @@
-package ru.itis;
+package ru.itis.controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 
-import java.io.IOException;
-
-public class Controller {
+public class CreateGameController {
 
     @FXML
     public GridPane gridPane;

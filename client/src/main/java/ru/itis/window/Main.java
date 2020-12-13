@@ -1,4 +1,4 @@
-package ru.itis;
+package ru.itis.window;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +15,6 @@ public class Main extends Application {
         Main.primaryStage = primaryStage;
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/menu.fxml"));
-//                loader.load(getClass().getResourceAsStream("/fxml/menu.fxml"));
         Scene scene = new Scene(loader.load(), 700, 400);
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.itis.controller.CreatePassController">
+   <center>
+       <VBox fx:id="vBox" maxHeight="150.0" maxWidth="150.0" prefHeight="150.0" prefWidth="83.0" style="-fx-spacing: 10;" BorderPane.alignment="CENTER">
+         <Label alignment="CENTER" prefHeight="17.0" prefWidth="162.0" text="Код для вашей игры:" />
+           <Label fx:id="label" alignment="CENTER" prefHeight="37.0" prefWidth="150.0">
+              <font>
+                  <Font size="16.0" />
+              </font>
+           </Label>
+       </VBox>
+   </center>
+</BorderPane>

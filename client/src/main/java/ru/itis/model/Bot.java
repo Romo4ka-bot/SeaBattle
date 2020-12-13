@@ -1,4 +1,4 @@
-package ru.itis;
+package ru.itis.model;
 
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -28,14 +28,14 @@ public class Bot {
 
     public int[][] generateMap() throws IOException {
 
-        ShipController shipController = new ShipController();
+        ShipMap shipMap = new ShipMap();
 
         for (int i = 3; i > -1; i--) {
 
             int x = random.nextInt(10);
             int y = random.nextInt(10);
 
-            Ship ship = shipController.getShips()[i];
+            Ship ship = shipMap.getShips()[i];
             ship.setCoordinates(new Integer[]{y, x});
 
             int position = random.nextInt(2);
@@ -43,7 +43,7 @@ public class Bot {
 
             if (i == 3) {
                 checkRotate(position, ship);
-                if (!shipController.canUseShip(ship, 4))
+                if (!shipMap.canUseShip(ship, 4))
                     i++;
             }
 
@@ -52,7 +52,7 @@ public class Bot {
 
                     checkRotate(position, ship);
 
-                    if (!shipController.canUseShip(ship, 3))
+                    if (!shipMap.canUseShip(ship, 3))
                         j--;
 
                     x = random.nextInt(10);
@@ -66,7 +66,7 @@ public class Bot {
 
                     checkRotate(position, ship);
 
-                    if (!shipController.canUseShip(ship, 2))
+                    if (!shipMap.canUseShip(ship, 2))
                         j--;
 
                     x = random.nextInt(10);
@@ -81,7 +81,7 @@ public class Bot {
 
                     checkRotate(position, ship);
 
-                    if (!shipController.canUseShip(ship, 1))
+                    if (!shipMap.canUseShip(ship, 1))
                         j--;
 
                     x = random.nextInt(10);
@@ -90,7 +90,7 @@ public class Bot {
                 }
             }
         }
-        return shipController.getMap();
+        return shipMap.getMap();
     }
 
     private void checkRotate(Integer position, Ship ship) {

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @author Roman Leontev
@@ -15,7 +14,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * group 11-905
  */
 
-public class TcpServer {
+public class TcpServer extends Thread {
     private List<ClientHandler> clients;
     private List<String> passwords;
     private List<Room> rooms;
@@ -27,15 +26,24 @@ public class TcpServer {
         rooms = new ArrayList<>();
         try {
             server = new ServerSocket(port);
-            while (true) {
-                Socket client = server.accept();
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    @Override
+    public void run() {
+        while (true) {
+            Socket client;
+            try {
+                client = server.accept();
                 System.out.println("Accept new client");
                 ClientHandler clientHandler = new ClientHandler(client, this);
                 clientHandler.start();
                 clients.add(clientHandler);
+            } catch (IOException e) {
+                throw new IllegalStateException(e);
             }
-        } catch (IOException e) {
-            throw new IllegalStateException(e);
         }
     }
 
@@ -47,20 +55,21 @@ public class TcpServer {
 
     public boolean checkPass(String uniqPass, ClientHandler clientHandler) {
 
-        AtomicBoolean flag = (AtomicBoolean) passwords.stream().filter(pass -> {
+        Optional<String> room1 = passwords.stream().filter(pass -> {
             if (pass.equals(uniqPass)) {
                 Optional<Room> currRoom = rooms.stream().filter(room -> !room.isPlay()).filter(room -> room.getPassword().equals(uniqPass)).findFirst();
                 currRoom.ifPresent(room -> {
                     room.setClientHandler2(clientHandler);
-                    room.start();
+                    room.getClientHandler1().sendMsg("/startGame");
+                    room.getClientHandler2().sendMsg("/startGame");
+                    room.setPlay(true);
                 });
                 return true;
             }
-
             return false;
-        });
+        }).findFirst();
 
-        return flag.get();
+        return room1.isPresent();
     }
 
     public String generateUniqPass() {
@@ -68,5 +77,21 @@ public class TcpServer {
         int number = rnd.nextInt(999999);
 
         return String.format("%06d", number);
+    }
+
+    public void sendRoomMsg(String msg, String pass, ClientHandler clientHandler) {
+        Optional<Room> currRoom = rooms.stream().filter(room -> room.getPassword().equals(pass)).findFirst();
+        if (currRoom.isPresent()) {
+            if (currRoom.get().getClientHandler1().equals(clientHandler))
+                currRoom.get().getClientHandler2().sendMsg(msg);
+            else
+                currRoom.get().getClientHandler1().sendMsg(msg);
+        }
+    }
+
+    public void deleteRoom(String passRoom) {
+        Optional<Room> currRoom = rooms.stream().filter(room -> room.getPassword().equals(passRoom)).findFirst();
+        currRoom.ifPresent(room -> rooms.remove(room));
+        passwords.remove(passRoom);
     }
 }

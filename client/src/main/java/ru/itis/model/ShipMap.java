@@ -1,4 +1,4 @@
-package ru.itis;
+package ru.itis.model;
 
 import lombok.Data;
 import lombok.Getter;
@@ -7,12 +7,12 @@ import lombok.Setter;
 @Data
 @Setter
 @Getter
-public class ShipController {
+public class ShipMap {
 
     private Ship[] ships = new Ship[4];
     private int[][] map = new int[12][12];
 
-    public ShipController() {
+    public ShipMap() {
         ships[0] = new Ship(4);
         ships[1] = new Ship(3);
         ships[2] = new Ship(2);

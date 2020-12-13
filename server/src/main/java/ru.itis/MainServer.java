@@ -8,6 +8,7 @@ package ru.itis;
 
 public class MainServer {
     public static void main(String[] args) {
-        new TcpServer(7777);
+        TcpServer server = new TcpServer(7777);
+        server.start();
     }
 }
