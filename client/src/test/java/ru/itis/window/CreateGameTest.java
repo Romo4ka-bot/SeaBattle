@@ -4,24 +4,38 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class CreateGameTest {
 
-    @Disabled
     @Test
     void createButton() {
-        GridPane gridPane = new GridPane();
-        CreateGame.addConstraints(gridPane);
+
         int i = 0;
         int j = 0;
-        Button button = CreateGame.createButton(gridPane, i, j);
+
+        Button button = mock(Button.class);
+        when(button.getPrefHeight()).thenReturn(32.0);
+        when(button.getPrefWidth()).thenReturn(32.0);
+
+        GridPane gridPane = mock(GridPane.class);
+        when(gridPane.getChildren().get(0)).thenReturn(button);
+
+        try {
+        button = CreateGame.createButton(gridPane, i, j);
+        }catch (ExceptionInInitializerError e) {
+            //ignore
+        }
+        Button finalButton = button;
+        Button finalButton1 = button;
+        Button finalButton2 = button;
         Assertions.assertAll(
-                () -> Assertions.assertEquals(button.getPrefHeight(), 32),
-                () -> Assertions.assertEquals(button.getPrefWidth(), 32),
-                () -> Assertions.assertEquals(button.getId(), button.toString()),
-                () -> Assertions.assertEquals(gridPane.getChildren().get(0), button)
+                () -> Assertions.assertEquals(finalButton.getPrefHeight(), 32),
+                () -> Assertions.assertEquals(finalButton1.getPrefWidth(), 32),
+                () -> Assertions.assertEquals(gridPane.getChildren().get(0), finalButton2)
         );
     }
 

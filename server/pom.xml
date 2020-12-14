@@ -46,7 +46,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>ru.kpfu.itis.NewMain</mainClass>
+                            <mainClass>ru.itis.MainServer</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
