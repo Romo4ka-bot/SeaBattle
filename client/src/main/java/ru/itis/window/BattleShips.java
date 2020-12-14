@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import ru.itis.controller.CheckPassController;
 import ru.itis.controller.CreatePassController;
@@ -74,11 +75,14 @@ public class BattleShips {
 
         Label labelUp = new Label("Нажмите на клетку для выстрела");
 
-        labelUp.setMaxWidth(200);
-        labelUp.setMaxHeight(100);
+        labelUp.setFont(new Font("Arial", 20));
+        labelDown.setFont(new Font("Arial", 20));
 
-        labelDown.setMaxWidth(200);
-        labelDown.setMaxHeight(100);
+//        labelUp.setMaxWidth(200);
+//        labelUp.setMaxHeight(100);
+//
+//        labelDown.setMaxWidth(200);
+//        labelDown.setMaxHeight(100);
 
         GridPane gridPane2 = new GridPane();
         gridPane2.setGridLinesVisible(true);
@@ -106,9 +110,15 @@ public class BattleShips {
         HBox hBox = new HBox();
         hBox.getChildren().addAll(gridPane, gridPane2);
 
-        vBox.getChildren().addAll(labelUp, hBox, labelDown);
+        vBox.getChildren().add(labelUp);
 
-        borderPane.getChildren().add(vBox);
+        VBox vBox1 = new VBox();
+        vBox1.getChildren().add(labelDown);
+
+        borderPane.setTop(vBox);
+        borderPane.setBottom(vBox1);
+
+        borderPane.setCenter(hBox);
 
         Scene scene = new Scene(borderPane, 700, 400);
         primaryStage.setResizable(false);
